@@ -1,0 +1,36 @@
+import "@fluencelabs/aqua-lib/builtin.aqua"
+import "@fluencelabs/registry/resources-api.aqua"
+import "@fluencelabs/registry/registry-service.aqua"
+import ServiceAddress from "types.aqua"
+
+
+func get_key(resource_id:string) -> bool: -- GetKeyMetadataResult:
+    t <- Peer.timestamp_sec()
+    Registry "registry"
+    result <- Registry.get_key_metadata(resource_id, t)
+    <- result.success
+
+
+
+func get_resources(resource_id: string) -> ?Key, *Error:
+    on HOST_PEER_ID:
+        res, err <- getResource(resource_id)
+        <- res, err
+
+
+func get_resources_with_peer(resource_id: string, peer_id:string) -> ?Key, *Error:
+    on peer_id:
+        res, err <- getResource(resource_id)
+        <- res, err
+
+
+func resolve_provider(resource_id:string, n_services: i16) -> []Record, *Error:
+    on HOST_PEER_ID:
+        res, err <- resolveProviders(resource_id, n_services)
+        <- res, err
+
+
+func resolve_provider_with_peer(resource_id:string, n_services: i16, peer_id:string) -> []Record, *Error:
+    on peer_id:
+        res, err <- resolveProviders(resource_id, n_services)
+        <- res, err
