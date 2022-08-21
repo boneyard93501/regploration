@@ -1,0 +1,11 @@
+{
+  "mean-calc": {
+    "name": "mean-calc",
+    "modules": [
+      {
+        "name": "mean-calc",
+        "path": "./artifacts/mean_calc.wasm"
+      }
+    ]
+  }
+}
