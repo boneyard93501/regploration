@@ -4,22 +4,12 @@
 
 Parallelize a mean (average) computation for some data array. Basic algo is a simple map-reduce: split the data array into a number of sub-arrays equal to the number of parallelizable mean services, calculate the mean for each subarray in parallel  and then to run one final mean calculation over the subarrays.
 
-On the services side, we have the follwing instances:
-
-```
-```
-
-and
-
-* want to add them as a registry source
-* we only want to use one service for each unique peer and use the second instance as a fallback, for example
-
 
 ## Mean Service
 
-wasm
+see [Wasm](./services/mean-calc/src/../../../services/mean-calc/src/main.rs)
 
-aqua
+see [Aqua](./aqua/mean_service.aqua)
 
 We deploy the services two times to three different peers with the following service addresses in *data/service_addrs.json*:
 
