@@ -1,0 +1,22 @@
+{
+  "description": "Registry Test",
+  "files": [
+    "*.aqua"
+  ],
+  "dependencies": {
+    "@fluencelabs/registry": "^0.5.5"
+  },
+  "keywords": [
+    "aqua",
+    "fluence",
+    "registry"
+  ],
+  "author": "Fluence Labs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fluencelabs/examples"
+  },
+  "devDependencies": {
+    "@fluencelabs/aqua": "^0.7.4-338"
+  }
+}
