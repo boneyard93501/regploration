@@ -1,0 +1,28 @@
+{
+  "service_addrs": [
+    {
+      "peer_id": "12D3KooWCMr9mU894i8JXAFqpgoFtx6qnV1LFPSfVc3Y34N4h4LS",
+      "service_id": "06b8a8bf-8952-479b-9160-2ee965e27892"
+    },
+    {
+      "peer_id": "12D3KooWCMr9mU894i8JXAFqpgoFtx6qnV1LFPSfVc3Y34N4h4LS",
+      "service_id": "202228be-c053-4a04-84be-59ec655f6103"
+    },
+    {
+      "peer_id": "12D3KooWEFFCZnar1cUJQ3rMWjvPQg6yMV2aXWs2DkJNSRbduBWn",
+      "service_id": "48ee1ff2-f017-4780-b293-ede068eabbcf"
+    },
+    {
+      "peer_id": "12D3KooWEFFCZnar1cUJQ3rMWjvPQg6yMV2aXWs2DkJNSRbduBWn",
+      "service_id": "0f4ae801-240e-4346-985d-85f095177185"
+    },
+    {
+      "peer_id": "12D3KooWD7CvsYcpF9HE9CCV9aY3SJ317tkXVykjtZnht2EbzDPm",
+      "service_id": "41f5c5f9-0dc9-40b8-b6b7-ae6b87ae9d0f"
+    },
+    {
+      "peer_id": "12D3KooWD7CvsYcpF9HE9CCV9aY3SJ317tkXVykjtZnht2EbzDPm",
+      "service_id": "18ee33c5-68ae-4896-8a04-dace728bbdc8"
+    }
+  ]
+}
