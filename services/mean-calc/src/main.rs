@@ -34,6 +34,7 @@ fn mean_iter_f64(data: Vec<Vec<u8>>) -> f64 {
         .collect::<Vec<f64>>()
         .into_iter()
         .sum();
+    println!("F64 ITER SUM: {:?}", sum);
     sum / data.len() as f64
 }
 
@@ -67,21 +68,28 @@ fn i64s_to_bytes(data: Vec<i64>) -> Vec<Vec<u8>> {
 
 #[cfg(test)]
 mod tests {
-    // use super::*;
+    use super::*;
     use marine_rs_sdk_test::marine_test;
 
-    // #[test]
+    #[test]
+    fn no_marine_i64_bytes() {
+        let res = i64s_to_bytes(vec![1_i64]);
+        assert_eq!(res, vec![[1, 0, 0, 0, 0, 0, 0, 0]]);
+    }
+
+    #[test]
+    fn no_marine_f64_bytes() {
+        let res = f64s_to_bytes(vec![1_f64]);
+        assert_eq!(res, vec![[0, 0, 0, 0, 0, 0, 240, 63]]);
+    }
+
     #[marine_test(config_path = "../configs/Config.toml", modules_dir = "../artifacts")]
-    // fn i64_bytes() {
     fn i64_bytes(mean_service: marine_test_env::mean_calc::ModuleInterface) {
-        // let res = i64s_to_bytes(vec![1_i64]);
         let res = mean_service.i64s_to_bytes(vec![1_i64]);
         assert_eq!(res, vec![[1, 0, 0, 0, 0, 0, 0, 0]]);
     }
 
-    // #[test]
     #[marine_test(config_path = "../configs/Config.toml", modules_dir = "../artifacts")]
-    // fn f64_bytes() {
     fn f64_bytes(mean_service: marine_test_env::mean_calc::ModuleInterface) {
         let res = mean_service.f64s_to_bytes(vec![1_f64]);
         assert_eq!(res, vec![[0, 0, 0, 0, 0, 0, 240, 63]]);
@@ -89,17 +97,17 @@ mod tests {
 
     #[marine_test(config_path = "../configs/Config.toml", modules_dir = "../artifacts")]
     fn i64_mean(mean_service: marine_test_env::mean_calc::ModuleInterface) {
-        let raw_data = vec![(-1) as i64,1_i64,6_i64];
+        let raw_data = vec![(-1) as i64, 1_i64, 6_i64];
         let data_bytes = mean_service.i64s_to_bytes(raw_data.clone());
         let res = mean_service.mean_iter_i64(data_bytes);
-        assert_eq!(res, 2_f64);
+        assert_eq!(res, 2.0_f64);
     }
 
     #[marine_test(config_path = "../configs/Config.toml", modules_dir = "../artifacts")]
     fn f64_mean(mean_service: marine_test_env::mean_calc::ModuleInterface) {
-        let raw_data = vec![(-1) as f64,1_f64,6_f64];
+        let raw_data = vec![(-1) as f64, 1_f64, 6_f64];
         let data_bytes = mean_service.f64s_to_bytes(raw_data.clone());
-        let res = mean_service.mean_iter_i64(data_bytes);
-        assert_eq!(res, 2_f64);
+        let res = mean_service.mean_iter_f64(data_bytes);
+        assert_eq!(res, 2.0_f64);
     }
 }
