@@ -4,7 +4,7 @@
     "*.aqua"
   ],
   "dependencies": {
-    "@fluencelabs/registry": "^0.5.5"
+    "@fluencelabs/registry": "^0.6.0"
   },
   "keywords": [
     "aqua",
@@ -17,6 +17,6 @@
     "url": "https://github.com/fluencelabs/examples"
   },
   "devDependencies": {
-    "@fluencelabs/aqua": "^0.7.4-338"
+    "@fluencelabs/aqua": "^0.7.5-342"
   }
 }
