@@ -1,0 +1,18 @@
+import "@fluencelabs/registry/resources-api.aqua"
+import "@fluencelabs/registry/registry-service.aqua"
+import ServiceAddress from "types.aqua"
+
+func register_resource(resource_label:string) -> ?string:
+    resource_id, error <- createResource(resource_label)
+    <- resource_id
+
+-- func register_service(resource_id: string, service_addrs: []ServiceAddress) -> bool:
+func register_service(resource_id: string, service_addrs: []ServiceAddress) -> []bool:
+    results: *bool
+    for service_addr <- service_addrs:
+        results <- registerServiceRecord(resource_id, "", service_addr.peer_id, ?[service_addr.service_id])
+    <- results
+
+func get_my_records(resource_id: string, consistency_level: i16) -> []Record, *Error:
+   records, error <- resolveResource(resource_id, consistency_level)
+   <- records, error

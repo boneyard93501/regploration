@@ -1,12 +1,13 @@
--- mean_service.aqua
 import ServiceAddress from "types.aqua"
 export mean_i64, mean_f64
+
 
 service MeanCalc("service-id"):
   f64s_to_bytes(data: []f64) -> [][]u8
   i64s_to_bytes(data: []i64) -> [][]u8
   mean_iter_f64(data: [][]u8) -> f64
   mean_iter_i64(data: [][]u8) -> f64
+
 
 -- convenience function
 func f64_to_bytes(data: []f64, service_addr: ServiceAddress) -> [][]u8:
@@ -47,3 +48,18 @@ func mean_f64(data: []f64, service_addr: ServiceAddress) -> f64:
         bytes <- f64_to_bytes(data, service_addr)
         res <- mean_f64_raw(bytes, service_addr)
     <- res
+
+func test_mean_i64(data: []i64, service_addrs: []ServiceAddress) -> []f64:
+  result: *f64
+  for service_addr <- service_addrs:
+    on service_addr.peer_id:
+      MeanCalc service_addr.service_id
+      bytes <- i64_to_bytes(data, service_addr)
+      result <- mean_i64_raw(bytes, service_addr)
+  <- result
+
+func test_addrs(service_addrs: []ServiceAddress) -> []ServiceAddress:
+  result: *ServiceAddress
+  for service_addr <- service_addrs:
+    result <<- service_addr
+  <- result
