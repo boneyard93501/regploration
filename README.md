@@ -7,11 +7,20 @@ Parallelize a mean (average) computation for some data array. Basic algo is a si
 
 ## Mean Service
 
-see [Wasm](./services/mean-calc/src/../../../services/mean-calc/src/main.rs)
+See [Wasm code](./services/mean-calc/src/../../../services/mean-calc/src/main.rs) and corresponding
+[Aqua code](./aqua/mean_services.aqua).
 
-see [Aqua](./aqua/mean_service.aqua)
+We deploy the services two times to three different peers, e.g.
 
-We deploy the services two times to three different peers with the following service addresses in *data/service_addrs.json*:
+```bash
+aqua remote deploy_service \
+    --addr <TARGET RELAY MULTIADDR> \
+    --config-path configs/deployment_cfg.json \
+    --service mean-calc \
+    --sk <YOUR-SECRET_KEY>
+```
+
+Which gives us the following service addresses in *data/service_addrs.json*:
 
 ```json
 [
@@ -40,6 +49,29 @@ We deploy the services two times to three different peers with the following ser
     "service_id": "18ee33c5-68ae-4896-8a04-dace728bbdc8"
   }
 ]
+```
+
+We can test our services in the REPL or with Aqua, e.g.:
+
+```bash
+aqua run \
+    --addr /dns4/kras-09.fluence.dev/tcp/19001/wss/p2p/12D3KooWD7CvsYcpF9HE9CCV9aY3SJ317tkXVykjtZnht2EbzDPm \
+    --input aqua/mean_services.aqua \
+    --func 'mean_i64([1,2,3], dict)' \
+    --data '{"dict":{"peer_id": "12D3KooWCMr9mU894i8JXAFqpgoFtx6qnV1LFPSfVc3Y34N4h4LS", "service_id": "06b8a8bf-8952-479b-9160-2ee965e27892"}}'
+
+2
+```
+
+Now that we got our services created, deployed and tested, let's work on our main problem in a minimalist fashion: we have an array of data [2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0] of length 12 and we have six service instances. So we can split the array into two slices of six, calculate the mean for each slice join the results and calculate the mean over those two values. Obviously, this makes a lot more sense if you got a lot of data 
+
+```python
+-- mean reduce
+n_data = array_length(payload)
+n_services =  array_length(services)
+n_slices = 
+
+
 ```
 
 ### Create The Resource
@@ -74,7 +106,7 @@ Which gives us *resource_id*:
 
 ### Populate The Resource
 
-Now that we have a resource instance, we can add our service records, from *data/service_addrs.json*, to the resource instance using the *register_service* fundtion:
+Now that we have a resource instance, we can add our service records, from *data/service_addrs.json*, to the resource instance using the *register_service* function:
 
 ```python
 -- register_services.aqua
